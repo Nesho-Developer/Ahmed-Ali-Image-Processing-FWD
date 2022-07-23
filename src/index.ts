@@ -3,10 +3,10 @@ import { updateImage } from './image.processing';
 
 const app = express();
 const port = process.env.Port || 3000;
-const logger = (req: Request, res: Response,next: NextFunction) => {
-    console.log('image resizing api called');
-    next();
-}
+const logger = (req: Request, res: Response, next: NextFunction) => {
+  console.log('image resizing api called');
+  next();
+};
 
 app.get('/api/update-image', logger, updateImage);
 

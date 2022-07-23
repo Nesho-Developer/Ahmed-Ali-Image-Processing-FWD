@@ -1,8 +1,7 @@
 import express from 'express';
 import sharp from 'sharp';
 import path from 'path';
-import { promises as fs, readdir } from 'fs';
-
+import { readdir } from 'fs';
 
 const originPath = './images/origin/';
 const resizedPath = './images/resized/';
@@ -22,7 +21,6 @@ export const updateImage = (req: express.Request, res: express.Response) => {
   const expectedEditedImgName = `${imageNameWithOutEx}_resized_by_${width}_${hight}.png`;
   let cheeckExisting = false;
 
-  
   if (
     Number.isNaN(Number.parseInt(width, 10)) ||
     Number.isNaN(Number.parseInt(hight, 10)) ||
@@ -51,15 +49,12 @@ export const updateImage = (req: express.Request, res: express.Response) => {
           }
         });
       }
-      
     });
-  } 
+  }
 };
 
-
-
 export const resizeImage = async (
-  imageData: { imageName: string, width: string, hight: string },
+  imageData: { imageName: string; width: string; hight: string },
   cb: (flag: string, savedName: string) => void
 ) => {
   const imageSplitName = imageData.imageName.split('.');
@@ -78,8 +73,11 @@ export const getImgFilesFromDir = async (
   dirPath: string,
   cb: (files: string[]) => void
 ) => {
-  await readdir(dirPath, (err: NodeJS.ErrnoException | null, files: string[]) => {
-    if (err) throw err;
-    cb(files);
-  });
+  await readdir(
+    dirPath,
+    (err: NodeJS.ErrnoException | null, files: string[]) => {
+      if (err) throw err;
+      cb(files);
+    }
+  );
 };

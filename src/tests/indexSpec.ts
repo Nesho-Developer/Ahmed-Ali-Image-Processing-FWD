@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import app from '../index';
 
-describe( 'test index file' , () => {
+describe('test index file', () => {
   it('404 not found', async function () {
     const response = await supertest(app).get('/app');
     expect(response.status).toEqual(404);
